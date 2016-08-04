@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+  <script type="text/javascript"
+  src="http://maps.googleapis.com/maps/api/js?libraries=weather&sensor=false">
+</script>
+      <script>
+      var welcome = document.getElementById('welcome');
+          welcome.innerHTML = localStorage.getItem("username") ;
+function findOut(){
+	
+	var item = document.getElementById('Item').value;
+    var city = document.getElementById('city').value;
+    var state = document.getElementById('state').value;
+var name="one.xml";
+var url = "http://www.SupermarketAPI.com/api.asmx/StoresByCityState?APIKEY=abb0645e0a&SelectedCity="+city+"&SelectedState="+state;
+//downloadURI();
+//setTimeout(read, 6000);
+    function ajaxRequest(){
+ var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]; //activeX versions to check for in IE
+ if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken
+  for (var i=0; i<activexmodes.length; i++){
+   try{
+    return new ActiveXObject(activexmodes[i]);
+   }
+   catch(e){
+    //suppress error
+   }
+  }
+ }
+ else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+ {
+     
+  return new XMLHttpRequest();
+ }
+ else
+  return false
+}
+read();
+/*function downloadURI() 
+{
+    
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = url;
+    link.click();
+}*/
+function read(){
+    
+var mygetrequest=new ajaxRequest();
+if (mygetrequest.overrideMimeType){
+ mygetrequest.overrideMimeType('text/xml');
+ }
+mygetrequest.onreadystatechange=function(){
+ if (mygetrequest.readyState==4){
+     
+  if (mygetrequest.status==200 || window.location.href.indexOf("http")==-1){
+   var xmldata=mygetrequest.responseXML //retrieve result as an XML object
+         
+            myFunction(xmldata);
+  }
+     else
+     {
+         alert("An error has occured making the request")
+  }
+ }
+}
+mygetrequest.open("GET", "http://www.SupermarketAPI.com/api.asmx/StoresByCityState?APIKEY=abb0645e0a&SelectedCity="+city+"&SelectedState="+state, true);
+mygetrequest.send();
+function myFunction(xmlDoc) {
+ 
+var x1 = xmlDoc.getElementsByTagName("Storename");
+var x2 = xmlDoc.getElementsByTagName("Address");
+var x3 = xmlDoc.getElementsByTagName("City");
+var x4 = xmlDoc.getElementsByTagName("State");
+var x5 = xmlDoc.getElementsByTagName("Zip");
+var x6 = xmlDoc.getElementsByTagName("StoreId");
+var table="<table><tr><th>Storename</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>StoreId</th></tr>";
+    
+for (var i = 0; i <(x1.length); i++) { 
+  table += "<tr><td>" +
+  x1[i].childNodes[0].nodeValue + "</td>"  + 
+  "<td>" + x2[i].childNodes[0].nodeValue + "</td>" +
+   "<td>" + x3[i].childNodes[0].nodeValue + "</td>" +
+   "<td>" + x4[i].childNodes[0].nodeValue + "</td>" +
+    "<td>" + x5[i].childNodes[0].nodeValue + "</td>" +
+     "<td>" + x6[i].childNodes[0].nodeValue + "</td>" +
+  "</tr>";
+ 
+}
+table+="</table>";
+document.getElementById("id01").innerHTML = table;
+}
+}	
+		}
+    
+    
+    
+    
+    function findOut2(){
+	
+	var item = document.getElementById('Item').value;
+    var storeid = document.getElementById('storeid').value;
+var name="one.xml";
+var url = "http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=abb0645e0a&StoreId="+storeid+"&ItemName="+item;
+//downloadURI();
+//setTimeout(read, 6000);
+        function ajaxRequest(){
+ var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]; //activeX versions to check for in IE
+ if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken
+  for (var i=0; i<activexmodes.length; i++){
+   try{
+    return new ActiveXObject(activexmodes[i]);
+   }
+   catch(e){
+    //suppress error
+   }
+  }
+ }
+ else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+ {
+     
+  return new XMLHttpRequest();
+ }
+ else
+  return false
+}
+read();
+        
+/*function downloadURI() 
+{
+    
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = url;
+    link.click();
+}*/
+function read(){
+ 
+var mygetrequest=new ajaxRequest();
+if (mygetrequest.overrideMimeType){
+ mygetrequest.overrideMimeType('text/xml');
+ }
+mygetrequest.onreadystatechange=function(){
+ if (mygetrequest.readyState==4){
+     
+  if (mygetrequest.status==200 || window.location.href.indexOf("http")==-1){
+   var xmldata=mygetrequest.responseXML //retrieve result as an XML object
+         
+            myFunction(xmldata);
+  }
+     else
+     {
+         alert("An error has occured making the request")
+  }
+ }
+}
+mygetrequest.open("GET", "http://www.SupermarketAPI.com/api.asmx/SearchForItem?APIKEY=abb0645e0a&StoreId="+storeid+"&ItemName="+item, true);
+mygetrequest.send();
+function myFunction(xmlDoc) {
+ 
+var x1 = xmlDoc.getElementsByTagName("Itemname");
+var x2 = xmlDoc.getElementsByTagName("ItemDescription");
+var x3 = xmlDoc.getElementsByTagName("ItemCategory");
+var x4 = xmlDoc.getElementsByTagName("ItemID");
+var x5 = xmlDoc.getElementsByTagName("AisleNumber");
+var x6 = xmlDoc.getElementsByTagName("Pricing");
+var table="<table><tr><th>Itemname</th><th>ItemDescription</th><th>ItemCategory</th><th>ItemID</th><th>AisleNumber</th></tr>";
+    alert("hello");
+for (var i = 0; i <(x1.length); i++) { 
+  table += "<tr><td>" +
+  x1[i].childNodes[0].nodeValue + "</td>"  + 
+  "<td>" + x2[i].childNodes[0].nodeValue + "</td>" +
+   "<td>" + x3[i].childNodes[0].nodeValue + "</td>" +
+   "<td>" + x4[i].childNodes[0].nodeValue + "</td>" +
+    "<td>" + x5[i].childNodes[0].nodeValue + "</td>" +
+     
+  "</tr>";
+ 
+}
+table+="</table>";
+document.getElementById("id01").innerHTML = table;
+}
+}	
+		}
+          
+          
+          function locationStorage()
+          {
+              alert("hello");
+              localStorage.setItem("state", document.getElementById("state").value);
+              localStorage.setItem("city", document.getElementById("city").value);
+              
+              window.location.assign("maplocator.html");
+          }
+		  
+      </script>
+      
+  </head>
+  <body ng-app="starter" bgcolor="#2EFE2E">
+      
+      <h3 align="center">Welcome to Dashboard</h3>
+      <div id="hello">
+      </div> </br>
+      <div id="welcome" align="centre" ng-controller="mapoutput">    
+            <u>Select the state and city in which you want to serach for stores and products</u> </br></br>
+            choose state:  <select id="state">
+                    <option value="MO">Missouri</option>
+            </select>
+            &nbsp&nbsp
+            choose City: <select id="city">
+                    <option value="Saint Louis">saint louis</option>
+                    <option value="Woodhaven">woodhaven</option>
+            </select>
+                
+                &nbsp&nbsp&nbsp<button id="btn" onclick="findOut()">
+                                 Display stores
+                </button>
+                &nbsp&nbsp
+                <button id="btn" onclick="locationStorage()">
+                    show location
+                </button>
+            </br></br>
+<u>Select the item to be searched in your desired store</u></br>
+Enter Item:  <input type="text"  id="Item" width="400" height="50"></input>
+Enter StoreID:  <input type="text"  id="storeid" width="400" height="50"></input>               
+     &nbsp&nbsp&nbsp<button id="btn2" onclick="findOut2()">
+                                 Display items list            
+           
+                    </button>   
+    <div id="id01"></div>
+    
+    </br></br>
+    
+</div>
+  </body>
+</html>
+
+<script>
+     var hello = document.getElementById('hello');
+hello.innerHTML = "Hello  " + localStorage.getItem("username") ;
+      </script>

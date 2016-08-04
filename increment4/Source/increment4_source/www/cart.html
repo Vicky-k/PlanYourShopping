@@ -1,0 +1,35 @@
+<html>
+<body>
+    <div id = "cart"></div>
+    </body>
+</html>
+<script>
+var count_cart = localStorage.getItem("cart_length");
+var count_store = localStorage.getItem("stores_count");
+var item;
+var price;
+var storeid;
+var display = document.getElementById("cart");
+var store;
+display.innerHTML = "";
+alert(count_store);
+for (var i=0;i<count_store;i++)
+{
+    store = localStorage.getItem("storelist"+i);
+    display.innerHTML = display.innerHTML + store + "</br>" + "<p>-----------------------------------------------</p>";
+    for( j=0;j<count_cart;j++)
+    {
+        item = localStorage.getItem("cartdata_0"+j);
+        price = localStorage.getItem("cartdata_1"+j);
+        storeid = localStorage.getItem("cartdata_2"+j);
+        if(store == storeid)
+        {
+        display.innerHTML = display.innerHTML + " " + item + " " + price+ " " + storeid;
+        display.innerHTML = display.innerHTML + "</br>";
+        }
+    }
+    
+    display.innerHTML = display.innerHTML + "<p>-----------------------------------------------</p>" + "</br>"+ "</br>";
+}
+
+</script>
